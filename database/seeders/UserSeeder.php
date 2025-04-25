@@ -3,32 +3,27 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        // Menambahkan user admin dan kasir
-        DB::table('users')->insert([
-            [
-                'name' => 'Admin',
-                'email' => 'admin@example.com',
-                'password' => Hash::make('password'),
-                'role' => 'admin',
-            ],
-            [
-                'name' => 'Kasir',
-                'email' => 'kasir@example.com',
-                'password' => Hash::make('password'),
-                'role' => 'kasir',
-            ],
+        // Admin
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'), // Ganti dengan password aman
+            'role' => 'admin',
+        ]);
+
+        // Kasir
+        User::create([
+            'name' => 'Kasir',
+            'email' => 'kasir@example.com',
+            'password' => Hash::make('password'), // Ganti dengan password aman
+            'role' => 'kasir',
         ]);
     }
 }

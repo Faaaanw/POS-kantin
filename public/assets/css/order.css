@@ -1,0 +1,215 @@
+/* Order Sidebar Styles */
+.order-sidebar {
+  background-color: var(--white);
+  border-left: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 3rem 0 0 0; /* Ganti sesuai selera, misal: 10px, 1rem, dst */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* opsional: tambahkan shadow */
+  padding: 1rem;
+}
+.button-add-item{
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:  1rem;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius:30px;
+  color: var(--gray-700);
+  transition: background-color var(--transition-fast);
+   
+}
+
+.order-header {
+  border-bottom: 1px solid var(--gray-200);
+  padding: 1rem;
+ 
+}
+
+.order-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.order-items {
+  flex: 1;
+  overflow: auto;
+}
+
+.empty-order {
+  padding: 1rem;
+  text-align: center;
+  color: var(--gray-500);
+}
+
+.order-item {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.order-item-info {
+  flex: 1;
+}
+
+.order-item-name {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+.order-item-price {
+  font-weight: 500;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-btn {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--gray-300);
+  color: var(--gray-500);
+  transition: background-color var(--transition-fast);
+}
+
+.quantity-btn:hover {
+  background-color: var(--gray-100);
+}
+
+.quantity-value {
+  width: 1.5rem;
+  text-align: center;
+}
+
+.order-footer {
+  border-top: 1px solid var(--gray-200);
+  padding: 1rem;
+}
+
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+}
+
+.checkout-btn:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* Mobile Order Toggle */
+.toggle-order-btn {
+  display: none;
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 30;
+}
+
+.toggle-order-btn .badge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-size: 0.75rem;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 15;
+}
+.order-items{
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+.order-item-name{
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+.order-wrapper{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.order-item-btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+ width: 120px;
+ gap: 10px ;
+}
+.btn-order-item{
+  width: 40px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius:30px;
+  color: var(--gray-700);
+  transition: background-color var(--transition-fast);
+   
+}
+
+@media (max-width: 768px) {
+  .toggle-order-btn {
+    display: flex;
+  }
+  
+  .order-overlay.active {
+    display: block;
+  }
+}

@@ -14,7 +14,9 @@ class Product extends Model
         'price',
         'stock',
         'category_id',
+        'image', // Tambahkan ini
     ];
+    
 
     // Relasi ke model Category
     public function category()

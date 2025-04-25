@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransactionItem extends Model
 {
-    public function transaction() {
+    protected $fillable = ['product_id', 'quantity', 'price', 'subtotal', 'transaction_id'];
+
+    public function transaction()
+    {
         return $this->belongsTo(Transaction::class);
     }
-    
-    public function product() {
+
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
+
 }
