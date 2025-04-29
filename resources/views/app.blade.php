@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{asset('assets/css/menu.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/css/order.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/css/animations.css')}} " />
+  <script src="{{ asset('assets/js/order.js') }}"></script>
   <!-- Tambahkan ini di bagian <head> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -70,6 +71,7 @@
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
             <span style="font-size: 14px">Transaction History</span>
+          </a>
         </div>
       </nav>
     </div>
@@ -88,27 +90,7 @@
 
     <!-- Bootstrap JS -->
 
-    <script>
-      const toggleEditBtn = document.getElementById('toggle-edit-mode');
-      const items = document.querySelectorAll('.menu-item');
-      let editMode = false;
 
-      toggleEditBtn.addEventListener('click', () => {
-        editMode = !editMode;
-        items.forEach(item => {
-          item.classList.toggle('edit-mode', editMode);
-        });
-      });
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          if (editMode) {
-            const id = item.getAttribute('data-id');
-            window.location.href = `/products/${id}/edit`;
-          }
-        });
-      });
-    </script>
     <script>
       const addProductModalButton = document.getElementById('toggle-add-product-modal');
       addProductModalButton.addEventListener('click', () => {
@@ -127,37 +109,46 @@
         items.forEach(item => item.classList.toggle('edit-mode', editMode));
       });
 
-      items.forEach(item => {
+      const menuGrid = document.getElementById('menu-grid');
+
+      menuGrid.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', (e) => {
-          if (!editMode) return;
-          e.preventDefault();
+          if (editMode) {
+            e.preventDefault();
+            if (!e.currentTarget.contains(e.target)) return;
+            if (e.target.closest('.edit-actions')) return;
 
-          // Jika klik berasal dari tombol edit/hapus, jangan lanjutkan
-          if (e.target.closest('.edit-actions')) return;
+            const id = item.dataset.id;
+            const name = item.querySelector('.menu-item-name').innerText.trim();
+            const priceText = item.querySelector('.menu-item-price').innerText.trim();
+            const price = priceText.replace(/[^\d]/g, '');
+            const stock = item.dataset.stock;
+            const category = item.dataset.category;
 
-          const id = item.dataset.id;
-          const name = item.querySelector('.menu-item-name').innerText.trim();
-          const priceText = item.querySelector('.menu-item-price').innerText.trim();
-          const price = priceText.replace(/[^\d]/g, '');
-          const stock = item.dataset.stock;
-          const category = item.dataset.category;
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-name').value = name;
+            document.getElementById('edit-price').value = price;
+            document.getElementById('edit-stock').value = stock;
+            document.getElementById('edit-category').value = category;
 
-          document.getElementById('edit-id').value = id;
-          document.getElementById('edit-name').value = name;
-          document.getElementById('edit-price').value = price;
-          document.getElementById('edit-stock').value = stock;
-          document.getElementById('edit-category').value = category;
+            document.getElementById('editProductForm').action = `/products/${id}`;
+            new bootstrap.Modal(document.getElementById('editProductModal')).show();
+          } else {
+            // kalau editMode false, baru jalankan addToOrder
+            const id = item.dataset.id;
+            const name = item.querySelector('.menu-item-name').innerText.trim();
+            const priceText = item.querySelector('.menu-item-price').innerText.trim();
+            const price = parseInt(priceText.replace(/[^\d]/g, ''));
 
-          document.getElementById('editProductForm').action = `/products/${id}`;
-
-          new bootstrap.Modal(document.getElementById('editProductModal')).show();
+            addToOrder(id, name, price);
+          }
         });
 
-        // Tambahkan ini untuk mencegah bubble dari tombol edit/hapus
         item.querySelectorAll('.edit-btn, form button').forEach(btn => {
           btn.addEventListener('click', e => e.stopPropagation());
         });
       });
+
 
     </script>
 
@@ -182,8 +173,13 @@
 
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
-        removeBtn.className = 'btn btn-danger btn-sm remove-btn';
-        removeBtn.innerText = '❌';
+        removeBtn.className = 'remove-btn';
+        removeBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" color="#ffffff" viewBox="0 0 24 24">
+          <path d="M9 3V4H4V6H5V20C5 21.1046 5.89543 22 7 22H17C18.1046 22 19 21.1046 19 20V6H20V4H15V3H9ZM7 6H17V20H7V6Z" />
+          <path d="M9 8H11V18H9V8ZM13 8H15V18H13V8Z" />
+        </svg>
+      `;
         removeBtn.onclick = () => removeRow(removeBtn);
 
         btnCol.appendChild(removeBtn);

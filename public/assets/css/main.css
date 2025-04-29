@@ -43,7 +43,10 @@ body {
   overflow: hidden;
 }
 
-
+.main-content{
+  background: linear-gradient(to bottom, var(--primary-color) 200px, var(--gray-100) 200px);
+  height: 100vh;
+}
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
