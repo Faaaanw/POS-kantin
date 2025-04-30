@@ -12,3 +12,7 @@ Route::resource('transactions', TransactionController::class);
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('login', [AuthController::class, 'loginForm'])->name('login.form');
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');

@@ -71,8 +71,9 @@ span {
 }
 
 .active {
-  background-color: var(--primary-light);
+  background-color: #a5a2eb;
   color: var(--white);
+  border-radius:8px ;
 }
 
 .nav-item span {

@@ -90,7 +90,27 @@
   
   .nav-item {
     justify-content: center;
+    text-decoration: none;
   }
+  .sidebar-nav .nav-item a {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-nav .nav-item a.active {
+  background-color: #e0e7ff; /* Warna highlight background */
+  color: #1e3a8a !important; /* Warna teks aktif */
+  border-radius: 20px;
+  font-weight: 600;
+}
+.active{
+  background-color: #e0e7ff; /* Warna highlight background */
+  color: #1e3a8a !important; /* Warna teks aktif */
+
+}
+
   
   .order-sidebar {
     width: 300px;

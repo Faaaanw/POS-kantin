@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{asset('assets/css/menu.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/css/order.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/css/animations.css')}} " />
+  <link rel="stylesheet" href="{{asset('assets/css/home.css')}} " />
   <script src="{{ asset('assets/js/order.js') }}"></script>
   <!-- Tambahkan ini di bagian <head> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,9 +42,11 @@
       </div>
 
       <nav class="sidebar-nav">
-        <div class="nav-item">
-          <a href="{{ url('/') }}" style="text-decoration: none;">
+      <a href="{{ url('/') }}"
+   class="{{ request()->is('/') ? 'active' : '' }}"
+   style="text-decoration: none; color: #363467;">
 
+            <div class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="9"></rect>
@@ -52,9 +55,13 @@
               <rect x="3" y="16" width="7" height="5"></rect>
             </svg>
             <span style="font-size: 14px">Dashboard</span>
-        </div>
-        <div class="nav-item">
-          <a href="{{ route('products.index') }}" style="text-decoration: none;">
+          </div>
+            </a>
+            <a href="{{ route('products.index') }}"
+   class="{{ request()->routeIs('products.*') ? 'active' : '' }}"
+   style="text-decoration: none; color: #363467;">
+
+            <div class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -62,18 +69,33 @@
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
             <span style="font-size: 14px">Menu</span>
-        </div>
-        <div class="nav-item">
-          <a href="{{ route('transactions.index') }}" style="text-decoration: none;">
+          </div>
+        </a>
+        <a href="{{ route('transactions.index') }}"
+   class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"
+   style="text-decoration: none; color: #363467;">
+
+            <div class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
             <span style="font-size: 14px">Transaction History</span>
+          </div>
           </a>
-        </div>
       </nav>
+      <div class="sidebar-footer mt-auto p-3">
+    @guest
+      <a href="{{ route('login') }}" class="btn btn-primary w-100">Login</a>
+    @else
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-danger w-100">Logout</button>
+      </form>
+    @endguest
+</div>
+
     </div>
 
 

@@ -1,0 +1,105 @@
+.home-main {
+    display: flex;
+    flex-direction: column;
+}
+.items-dashboard{
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+.pos-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin: 2rem 0 0 2rem;
+}
+.transaction-home {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    font-weight: 400;
+    color: var(--gray-700);
+    border-radius: 30px;
+}
+.home-container {
+    padding: 2rem;
+}
+.header-home {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    z-index: 999;
+}
+.home-content-scroll {
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px); /* atur sesuai kebutuhan layout */
+    padding-right: 1rem; /* optional: agar scrollbar tidak menimpa isi */
+    z-index: 1;
+    margin-top: 2rem;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.home-content {
+    padding-right: 1rem; /* tambahan jika dibutuhkan */
+   
+}
+.home-content-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+.text-icon{
+    background-color: rgb(23, 173, 23);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    border-radius: 40px;
+    margin: 1rem 1rem 1rem 0;
+    
+}
+.text-icon-2{
+    background-color: rgb(23, 70, 173);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    border-radius: 40px;
+    margin: 1rem 1rem 1rem 0;
+    
+}
+.text-icon-3{
+    background-color: rgb(226, 230, 22);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    border-radius: 40px;
+    margin: 1rem 1rem 1rem 0;
+    
+}
+.text-icon-4{
+    background-color: rgb(218, 23, 23);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    border-radius: 40px;
+    margin: 1rem 1rem 1rem 0;
+    
+}

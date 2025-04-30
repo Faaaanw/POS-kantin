@@ -75,19 +75,40 @@ function submitOrder() {
         return;
     }
 
-    // Proceed with form submission
+    // Validasi stok
+    let stockValid = true;
+    let outOfStockMessage = "";
+
+    document.querySelectorAll(".product-row").forEach((row) => {
+        const select = row.querySelector("select");
+        const quantityInput = row.querySelector('input[type="number"]');
+
+        const selectedOption = select.selectedOptions[0];
+        const stock = parseInt(selectedOption.getAttribute("data-stock")) || 0;
+        const qty = parseInt(quantityInput.value) || 0;
+
+        if (qty > stock) {
+            stockValid = false;
+            outOfStockMessage += `- ${selectedOption.text} hanya tersedia ${stock}\n`;
+        }
+    });
+
+    if (!stockValid) {
+        alert("Produk habis atau stok tidak cukup:\n" + outOfStockMessage);
+        return;
+    }
+
+    // Lanjut submit form jika valid
     const form = document.createElement("form");
     form.method = "POST";
     form.action = "{{ route('transactions.store') }}";
 
-    // CSRF Token
     const csrf = document.createElement("input");
     csrf.type = "hidden";
     csrf.name = "_token";
     csrf.value = "{{ csrf_token() }}";
     form.appendChild(csrf);
 
-    // Products and quantities
     document.querySelectorAll(".product-row").forEach((row) => {
         const productInput = row.querySelector("select").value;
         const qtyInput = row.querySelector('input[type="number"]').value;
@@ -105,7 +126,6 @@ function submitOrder() {
         form.appendChild(qtyField);
     });
 
-    // Paid Amount
     const paidInput = document.createElement("input");
     paidInput.type = "hidden";
     paidInput.name = "paid_amount";
@@ -115,6 +135,7 @@ function submitOrder() {
     document.body.appendChild(form);
     form.submit();
 }
+
 
 // Calculate total price
 function calculateTotal() {

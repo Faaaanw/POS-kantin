@@ -152,6 +152,11 @@
             <div id="order-sidebar" class="order-sidebar"
                 style="display:none; position:fixed; right:0; top:0; width:300px; height:100%; background:#fff; border-left:1px solid #ccc; padding:20px; overflow-y:auto; z-index:1000;">
                 <h5 style="color: black;">Order</h5>
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <form class="form-order" method="POST" action="{{ route('transactions.store') }}">
                     @csrf
@@ -169,7 +174,7 @@
                             <div class=" product-list">
                                 <select name="products[]" class="item-list" required>
                                     @foreach ($products as $product)
-                                        <option class="form-control" value="{{ $product->id }}"
+                                        <option class="form-control" value="{{ $product->id }}" data-price="{{ $product->price }}" data-stock="{{ $product->stock }}"
                                             data-price="{{ $product->price }}">{{ $product->name }} -
                                             Rp{{ number_format($product->price, 0) }}</option>
                                     @endforeach
