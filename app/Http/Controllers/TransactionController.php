@@ -27,6 +27,10 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Silakan login terlebih dahulu untuk melakukan transaksi.');
+        }
+        
         // Validasi input
         $request->validate([
             'products' => 'required|array',
@@ -92,11 +96,12 @@ class TransactionController extends Controller
             }
         }
     
-        return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil disimpan!');
+        return redirect()->route('transactions.receipt', $transaction->id);
+
     }
-    
-
-
-
-
+    public function receipt($id)
+    {
+        $transaction = Transaction::with('items.product', 'user')->findOrFail($id);
+        return view('transactions.receipt', compact('transaction'));
+    }
 }

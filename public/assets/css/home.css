@@ -25,14 +25,15 @@
     border-radius: 30px;
 }
 .home-container {
-    padding: 2rem;
+    padding: 3rem ;
 }
 .header-home {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     z-index: 999;
 }
+
 .home-content-scroll {
     flex: 1;
     overflow-y: auto;

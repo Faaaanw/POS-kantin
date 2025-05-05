@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Restaurant POS System</title>
+  <title>SYBAU Mart</title>
   <link rel="stylesheet" href="{{asset('assets/css/main.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/css/layout.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/css/sidebar.css')}}" />
@@ -37,16 +37,15 @@
               <line x1="12" y1="9" x2="12" y2="15" />
             </svg>
           </div>
-          <span class="logo-text">App Name</span>
+          <span class="logo-text">SybauMart</span>
         </div>
       </div>
 
       <nav class="sidebar-nav">
-      <a href="{{ url('/') }}"
-   class="{{ request()->is('/') ? 'active' : '' }}"
-   style="text-decoration: none; color: #363467;">
+        <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}"
+          style="text-decoration: none; color: #363467;">
 
-            <div class="nav-item">
+          <div class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="9"></rect>
@@ -56,12 +55,11 @@
             </svg>
             <span style="font-size: 14px">Dashboard</span>
           </div>
-            </a>
-            <a href="{{ route('products.index') }}"
-   class="{{ request()->routeIs('products.*') ? 'active' : '' }}"
-   style="text-decoration: none; color: #363467;">
+        </a>
+        <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.*') ? 'active' : '' }}"
+          style="text-decoration: none; color: #363467;">
 
-            <div class="nav-item">
+          <div class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -71,11 +69,9 @@
             <span style="font-size: 14px">Menu</span>
           </div>
         </a>
-        <a href="{{ route('transactions.index') }}"
-   class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"
-   style="text-decoration: none; color: #363467;">
-
-            <div class="nav-item">
+        <a href="{{ route('transactions.index') }}" class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"
+          style="text-decoration: none; color: #363467;">
+          <div class="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -83,18 +79,32 @@
             </svg>
             <span style="font-size: 14px">Transaction History</span>
           </div>
-          </a>
+        </a>
+        <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}"
+   style="text-decoration: none; color: #363467;">
+
+  <div class="nav-item">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+      <path d="M17 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M7 21v-2a4 4 0 0 1 3-3.87"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    <span style="font-size: 14px">User Management</span>
+  </div>
+</a>
+
       </nav>
       <div class="sidebar-footer mt-auto p-3">
-    @guest
+        @guest
       <a href="{{ route('login') }}" class="btn btn-primary w-100">Login</a>
     @else
-      <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-danger w-100">Logout</button>
-      </form>
-    @endguest
-</div>
+    <form action="{{ route('logout') }}" method="POST">
+      @csrf
+      <button type="submit" class="btn btn-danger w-100">Logout</button>
+    </form>
+  @endguest
+      </div>
 
     </div>
 
@@ -215,6 +225,24 @@
         row.remove();
       }
     </script>
+    <script>
+      const searchInput = document.getElementById('search-input');
+      const productItems = document.querySelectorAll('.menu-item');
+
+      searchInput.addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+
+        productItems.forEach(item => {
+          const name = item.getAttribute('data-name');
+          if (name.includes(query)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    </script>
+
 
     <!-- Optional: Responsive Fix for Sidebar -->
     <style>

@@ -58,8 +58,9 @@
                 <div class="menu-grid" id="menu-grid">
                     @foreach($products as $product)
                         <div class="menu-item" data-id="{{ $product->id }}" data-stock="{{ $product->stock }}"
-                            data-category="{{ $product->category_id }}"
+                            data-category="{{ $product->category_id }}" data-name="{{ strtolower($product->name) }}"
                             onclick="addToOrder({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
+
 
                             <div class="menu-item-image">
                                 <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
@@ -76,7 +77,10 @@
                             </div>
                             <div class="menu-item-info">
                                 <span class="menu-item-name">{{ $product->name }}</span>
-                                <p class="menu-item-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                                <div class="info-container">
+                                    <p class="menu-item-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>                         
+                                    <p class="menu-item-price">Stok: {{ $product->stock }}</p>
+                                </div>
                             </div>
                             <div class="edit-actions">
                                 <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline"
@@ -102,7 +106,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                             </div>
                             <div class="modal-body">
-                            <form method="POST" id="editProductForm" enctype="multipart/form-data">
+                                <form method="POST" id="editProductForm" enctype="multipart/form-data">
 
                                     @csrf
                                     @method('PUT')
@@ -174,7 +178,8 @@
                             <div class=" product-list">
                                 <select name="products[]" class="item-list" required>
                                     @foreach ($products as $product)
-                                        <option class="form-control" value="{{ $product->id }}" data-price="{{ $product->price }}" data-stock="{{ $product->stock }}"
+                                        <option class="form-control" value="{{ $product->id }}"
+                                            data-price="{{ $product->price }}" data-stock="{{ $product->stock }}"
                                             data-price="{{ $product->price }}">{{ $product->name }} -
                                             Rp{{ number_format($product->price, 0) }}</option>
                                     @endforeach
