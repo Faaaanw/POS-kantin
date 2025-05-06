@@ -12,9 +12,19 @@ use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::with('user')->orderBy('transaction_time', 'asc')->get();
+        $query = Transaction::with('user')->orderBy('transaction_time', 'asc');
+    
+        if ($request->start_date && $request->end_date) {
+            $query->whereBetween('transaction_time', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date . ' 23:59:59'
+            ]);
+        }
+    
+        $transactions = $query->get();
+    
         return view('transactions.index', compact('transactions'));
     }
     public function create()

@@ -242,3 +242,22 @@ input {
 .cursor-pointer {
   cursor: pointer;
 }
+.auth-buttons {
+  z-index: 1050; /* lebih tinggi dari sidebar dan konten lain */
+}
+.button-logout{
+  background-color: rgb(219, 38, 38);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  padding-right:3px;
+  color: white;
+}
+.button-login{
+  background-color: rgb(29, 93, 231);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  padding-top:1px;
+  color: white;
+}

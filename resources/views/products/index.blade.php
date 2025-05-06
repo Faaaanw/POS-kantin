@@ -74,24 +74,32 @@
                                         <line x1="12" y1="16" x2="12.01" y2="16"></line>
                                     </svg>
                                 </div>
+                                <div class="edit-actions">
+                                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn-delete-products">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="23"
+                                                height="23" fill="currentColor" color="#ffffff" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M9 3V4H4V6H5V20C5 21.1046 5.89543 22 7 22H17C18.1046 22 19 21.1046 19 20V6H20V4H15V3H9ZM7 6H17V20H7V6Z">
+                                                </path>
+                                                <path d="M9 8H11V18H9V8ZM13 8H15V18H13V8Z"></path>
+                                            </svg></button>
+                                    </form>
+
+
+                                </div>
                             </div>
                             <div class="menu-item-info">
                                 <span class="menu-item-name">{{ $product->name }}</span>
                                 <div class="info-container">
-                                    <p class="menu-item-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>                         
+                                    <p class="menu-item-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                                     <p class="menu-item-price">Stok: {{ $product->stock }}</p>
                                 </div>
                             </div>
-                            <div class="edit-actions">
-                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Yakin ingin menghapus?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger mb-1">Hapus</button>
-                                </form>
 
-
-                            </div>
                         </div>
                     @endforeach
                 </div>
