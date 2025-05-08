@@ -13,6 +13,9 @@
                             <span style="color: white">Transaction</span>
                         </div>
                     </div>
+                    <div class="menu-title-container" style="text-decoration: none;">
+                        <h1 class="menu-title" style="text-decoration: none;">Transaksi</h1>
+                    </div>
                 </div>
 
                 <div class="container-transaction">

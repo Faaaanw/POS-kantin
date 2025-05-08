@@ -9,7 +9,9 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', [HomeController::class, 'index'])-> name('home');
+Route::get('/products/report', [ProductController::class, 'report'])->name('products.report');
 Route::resource('products', ProductController::class);
+
 Route::resource('transactions', TransactionController::class);
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
@@ -25,3 +27,5 @@ Route::post('/logout', function () {
     return redirect('/login');
 })->name('logout');
 Route::get('/transactions/{id}/receipt', [TransactionController::class, 'receipt'])->name('transactions.receipt');
+Route::get('/products/report', [ProductController::class, 'report'])->name('products.report');
+

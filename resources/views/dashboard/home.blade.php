@@ -78,7 +78,7 @@
           <table class="w-full text-left border-collapse bg-white">
           <thead class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
             <tr>
-            <th class="py-3 px-6">ID</th>
+            <th class="py-3 px-6">#</th>
             <th class="py-3 px-6">Waktu</th>
             <th class="py-3 px-6">Total Harga</th>
             <th class="py-3 px-6">Dibayar</th>
@@ -89,7 +89,7 @@
           <tbody class="text-gray-700 text-sm font-light">
             @foreach($latestTransactions as $transaction)
         <tr class="border-b hover:bg-gray-50 transition duration-200 ease-in-out">
-        <td class="py-3 px-6">{{ $transaction->id }}</td>
+        <td class="py-3 px-6">{{ $loop->iteration }}</td>
         <td class="py-3 px-6">{{ $transaction->transaction_time->format('d-m-Y H:i') }}</td>
         <td class="py-3 px-6">Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</td>
         <td class="py-3 px-6">Rp {{ number_format($transaction->paid_amount, 0, ',', '.') }}</td>

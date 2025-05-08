@@ -15,16 +15,16 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $query = Transaction::with('user')->orderBy('transaction_time', 'asc');
-    
+
         if ($request->start_date && $request->end_date) {
             $query->whereBetween('transaction_time', [
                 $request->start_date . ' 00:00:00',
                 $request->end_date . ' 23:59:59'
             ]);
         }
-    
+
         $transactions = $query->get();
-    
+
         return view('transactions.index', compact('transactions'));
     }
     public function create()
@@ -40,26 +40,26 @@ class TransactionController extends Controller
         if (!Auth::check()) {
             return redirect()->back()->with('error', 'Silakan login terlebih dahulu untuk melakukan transaksi.');
         }
-        
+
         // Validasi input
         $request->validate([
             'products' => 'required|array',
             'quantities' => 'required|array',
             'paid_amount' => 'required|numeric|min:0',
         ]);
-    
+
         $products = $request->input('products');
         $quantities = $request->input('quantities');
-    
+
         $total = 0;
-    
+
         // Hitung total harga dari semua produk
         foreach ($products as $i => $productId) {
             $product = Product::find($productId);
             if ($product) {
                 $qty = $quantities[$i];
                 $total += $product->price * $qty;
-    
+
                 // Update stok produk setelah transaksi
                 if ($product->stock >= $qty) {
                     $product->decrement('stock', $qty); // Mengurangi stok produk
@@ -69,16 +69,16 @@ class TransactionController extends Controller
                 }
             }
         }
-    
+
         // Hitung kembalian
         $paid = $request->paid_amount;
         $change = $paid - $total;
-    
+
         // Jika uang yang dibayar kurang
         if ($change < 0) {
             return redirect()->back()->with('error', 'Jumlah bayar kurang dari total harga.');
         }
-    
+
         // Simpan transaksi ke tabel transactions
         $transaction = Transaction::create([
             'user_id' => auth()->id(), // Menyimpan user_id dari user yang login
@@ -87,14 +87,14 @@ class TransactionController extends Controller
             'change' => $change, // Kembalian
             'transaction_time' => now(), // Waktu transaksi
         ]);
-    
+
         // Simpan item-item yang dibeli ke tabel transaction_items
         foreach ($products as $i => $productId) {
             $product = Product::find($productId);
             if ($product) {
                 $qty = $quantities[$i];
                 $subtotal = $product->price * $qty;
-    
+
                 // Pastikan `transaction_id` terisi dengan benar
                 TransactionItem::create([
                     'transaction_id' => $transaction->id, // Menyimpan id transaksi
@@ -105,8 +105,13 @@ class TransactionController extends Controller
                 ]);
             }
         }
-    
-        return redirect()->route('transactions.receipt', $transaction->id);
+
+        return redirect()->route('products.index')->with([
+            'transaksi_berhasil' => true,
+            'transaction_id' => $transaction->id
+        ]);
+
+
 
     }
     public function receipt($id)

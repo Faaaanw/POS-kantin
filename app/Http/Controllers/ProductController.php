@@ -38,7 +38,7 @@ class ProductController extends Controller
             $request->file('image')->storeAs('products', $imageName, 'public'); // ← disk 'public'
             $data['image'] = $imageName;
         }
-        
+
 
 
         Product::create($data);
@@ -70,7 +70,7 @@ class ProductController extends Controller
             $request->file('image')->storeAs('products', $imageName, 'public');
             $validatedData['image'] = $imageName;
         }
-        
+
         $product->update($validatedData);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
@@ -92,5 +92,21 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }
+    public function report(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $query = Product::with('category');
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $products = $query->get();
+
+        return view('products.report', compact('products', 'startDate', 'endDate'));
+    }
+
 }
 

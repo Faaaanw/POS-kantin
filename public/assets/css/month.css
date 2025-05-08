@@ -1,0 +1,91 @@
+.container-monthly {
+    background-color: #ffffff;
+    margin: 20px auto;
+    margin-top: 30px;
+    padding: 30px 40px;
+    border-radius: 16px;
+    color: #333;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.container-monthly h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+.container-monthly form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.container-monthly input[type="month"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.container-monthly button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.container-monthly button:hover {
+    background-color: #45a049;
+}
+
+.container-monthly .card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.container-monthly .card p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.container-monthly ul {
+    padding-left: 20px;
+    list-style: disc;
+    font-size: 14px;
+    color: #555;
+}
+
+.container-monthly h4 {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.container-monthly table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.container-monthly table th,
+.container-monthly table td {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    text-align: left;
+}
+
+.container-monthly table th {
+    background-color: #f0f0f0;
+    color: #333;
+}

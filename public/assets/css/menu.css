@@ -2,7 +2,7 @@
 .menu-header {
     background-color: var(--primary-color);
     padding: 2.2rem;
-    border-bottom: 1px solid var(--gray-200);
+
     gap: 0.5rem;
     width: 100%;
 }
@@ -25,6 +25,8 @@
 }
 .menu-container {
     transition: margin-right 0.3s;
+    overflow-x: hidden; /* Hentikan scroll horizontal */
+    
 }
 #order-sidebar {
     border-radius: 20px;
@@ -34,7 +36,7 @@
     height: 50px;
     background-color: var(--primary-color);
     position: fixed;
-    left: 1200px;
+    right: 0;
     margin: 20px 40px;
     align-items: center;
     justify-content: center;
@@ -50,6 +52,9 @@
 }
 .menu-container.shifted {
     margin-right: 300px; /* Geser menu-container ke kiri sebesar lebar sidebar */
+}
+.category-list.shifted{
+    margin-right: 100px;
 }
 
 .breadcrumb {
@@ -169,7 +174,8 @@
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    overflow-x: hidden; /* cegah scroll horizontal */
     gap: 1rem;
     padding: 1rem;
     overflow-y: auto; /* atau overflow-x: auto jika horizontal */
@@ -197,6 +203,7 @@
     box-shadow: var(--shadow-md);
     border-radius: 20px;
     padding: 0;
+    justify-content: center;
 }
 
 .menu-item:hover {
@@ -210,6 +217,8 @@
     width: 11rem;
     position: relative;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
 .info-container {
     display: flex;
@@ -223,6 +232,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition);
+    border-radius: 10px 10px 0 0;
 }
 
 .menu-item:hover .menu-item-image img {
@@ -275,16 +285,16 @@
 .btn-filter {
     width: 90px;
     height: 35px;
-    background-color: blue;
+    background-color: #4060b8;
     color: white;
-    border-radius: 12px;
+    border-radius: 15px;
 }
 .btn-reset {
     width: 90px;
     height: 35px;
-    background-color: blue;
+    background-color: #a71d1d;
     color: white;
-    border-radius: 12px;
+    border-radius: 15px;
     padding-top: 5px;
     text-decoration: none;
     text-align: center;
