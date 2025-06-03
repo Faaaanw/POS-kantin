@@ -63,50 +63,47 @@
 
                 <div class="menu-grid" id="menu-grid">
                     @foreach($products as $product)
-                        <div class="menu-item" data-id="{{ $product->id }}" data-stock="{{ $product->stock }}"
-                            data-category="{{ $product->category_id }}" data-name="{{ strtolower($product->name) }}"
-                            onclick="addToOrder({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
+                        @if($product->stock > 0) <!-- Produk hanya ditampilkan jika stok lebih dari 0 -->
+                            <div class="menu-item" data-id="{{ $product->id}}" data-stock="{{ $product->stock }}"
+                                data-category="{{ $product->category_id }}" data-name="{{ strtolower($product->name) }}"
+                                onclick="addToOrder({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})">
 
+                                <div class="menu-item-image">
+                                    <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
+                                        onclick="addToOrder({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})" />
+                                    <!-- ... tombol edit & hapus tetap ditampilkan di admin -->
+                                    <div class="edit-icon">
+                                        <!-- SVG Edit Icon -->
+                                    </div>
+                                    <div class="edit-actions">
+                                        <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn-delete-products" type="button" onclick="konfirmasiHapus(this)">
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6"
+                                                        stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
 
-                            <div class="menu-item-image">
-                                <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}"
-                                    onclick="addToOrder({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})" />
-                                <div class="edit-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                    </svg>
-                                </div>
-                                <div class="edit-actions">
-                                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn-delete-products" type="button" onclick="konfirmasiHapus(this)">
-                                            <svg width="25" height="25" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17"
-                                                    stroke="#ffffff" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="menu-item-info">
-                                <span class="menu-item-name">{{ $product->name }}</span>
-                                <div class="info-container">
-                                    <p class="menu-item-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                                    <p class="menu-item-price">Stok: {{ $product->stock }}</p>
+                                <div class="menu-item-info">
+                                    <span class="menu-item-name">{{ $product->name }}</span>
+                                    <div class="info-container">
+                                        <p class="menu-item-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                                        <p class="menu-item-price">Stok: {{ $product->stock }}</p>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
+                        @endif
                     @endforeach
                 </div>
+
 
                 <!-- Modal Edit Produk -->
                 <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
@@ -401,25 +398,25 @@
         });
 
     </script>
-  @if(session('transaksi_berhasil') && session('transaction_id'))
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-Swal.fire({
-    title: 'Transaksi berhasil!',
-    text: 'Apakah Anda ingin mencetak struk?',
-    icon: 'success',
-    showCancelButton: true,
-    confirmButtonText: 'Print Receipt',
-    cancelButtonText: 'Kembali'
-}).then((result) => {
-    if (result.isConfirmed) {
-        window.location.href = "{{ route('transactions.receipt', session('transaction_id')) }}";
-    } else {
-        // Tidak melakukan apa-apa, tetap di halaman ini
-    }
-});
-</script>
-@endif
+    @if(session('transaksi_berhasil') && session('transaction_id'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: 'Transaksi berhasil!',
+                text: 'Apakah Anda ingin mencetak struk?',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Print Receipt',
+                cancelButtonText: 'Kembali'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open("{{ route('transactions.receipt', session('transaction_id')) }}", '_blank');
+                } else {
+                    // Tidak melakukan apa-apa, tetap di halaman ini
+                }
+            });
+        </script>
+    @endif
 
 
 @endsection

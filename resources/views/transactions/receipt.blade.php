@@ -13,7 +13,7 @@
 </head>
 <body onload="window.print()">
     <div class="receipt">
-        <h3 class="center">Kantin POS</h3>
+        <h3 class="center">Lio Mart</h3>
         <p><strong>Tanggal:</strong> {{ $transaction->transaction_time }}</p>
         <p><strong>Kasir:</strong> {{ $transaction->user->name }}</p>
 

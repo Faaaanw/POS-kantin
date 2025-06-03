@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->get(); // pastikan relasi kategori diikutkan
+        $products = Product::with('category')->orderBy('created_at','desc')->get(); // pastikan relasi kategori diikutkan
         $categories = Category::all(); // Ambil semua kategori
         return view('products.index', compact('products', 'categories'));
     }
@@ -92,21 +93,23 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }
-    public function report(Request $request)
-    {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+   public function report(Request $request)
+{
+    $startDate = $request->input('start_date');
+    $endDate = $request->input('end_date');
 
-        $query = Product::with('category');
+    $query = Product::with('category');
 
-        if ($startDate && $endDate) {
-            $query->whereBetween('created_at', [$startDate, $endDate]);
-        }
+    if ($startDate && $endDate) {
+        $start = Carbon::parse($startDate)->startOfDay();  
+        $end = Carbon::parse($endDate)->endOfDay();        
 
-        $products = $query->get();
-
-        return view('products.report', compact('products', 'startDate', 'endDate'));
+        $query->whereBetween('created_at', [$start, $end]);
     }
 
+    $products = $query->get();
+
+    return view('products.report', compact('products', 'startDate', 'endDate'));
+}
 }
 

@@ -36,38 +36,65 @@
                                 class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">
                                 Filter
                             </button>
+                            <button style="background-color:#d62222; margin-left: 10px;" class="w-full text-white font-semibold py-2 rounded hover:bg-blue-700 transition">
+                                <a href="{{ route('products.report') }}" class="btn-reset-products" style="color:white; text-decoration: none;">Reset</a>
+
+                            </button>
+                             
                         </div>
                     </form>
 
                     @if($products->count())
                         <div class="overflow-x-auto">
-                            <table class="min-w-full bg-white border border-gray-200 rounded text-sm">
-                                <thead class="bg-gray-100 text-gray-700">
-                                    <tr>
-                                        <th class="py-2 px-4 text-left border-b">Nama</th>
-                                        <th class="py-2 px-4 text-left border-b">Kategori</th>
-                                        <th class="py-2 px-4 text-left border-b">Harga</th>
-                                        <th class="py-2 px-4 text-left border-b">Stok</th>
-                                        <th class="py-2 px-4 text-left border-b">Tanggal Ditambahkan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($products as $product)
-                                        <tr class="hover:bg-gray-50">
-                                            <td class="py-2 px-4 border-b">{{ $product->name }}</td>
-                                            <td class="py-2 px-4 border-b">{{ $product->category->name ?? '-' }}</td>
-                                            <td class="py-2 px-4 border-b">{{ number_format($product->price, 0, ',', '.') }}</td>
-                                            <td class="py-2 px-4 border-b">{{ $product->stock }}</td>
-                                            <td class="py-2 px-4 border-b">{{ $product->created_at->format('d-m-Y') }}</td>
+                            <div class="scrollable-table-report">
+                                <table class="min-w-full bg-white border border-gray-200 rounded text-sm">
+                                    <thead class="bg-gray-100 text-gray-700">
+                                        <tr>
+                                            <th class="py-2 px-4 text-left border-b">Nama</th>
+                                            <th class="py-2 px-4 text-left border-b">Kategori</th>
+                                            <th class="py-2 px-4 text-left border-b">Harga</th>
+                                            <th class="py-2 px-4 text-left border-b">Stok</th>
+                                            <th class="py-2 px-4 text-left border-b">Tanggal Ditambahkan</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($products as $product)
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="py-2 px-4 border-b">{{ $product->name }}</td>
+                                                <td class="py-2 px-4 border-b">{{ $product->category->name ?? '-' }}</td>
+                                                <td class="py-2 px-4 border-b">{{ number_format($product->price, 0, ',', '.') }}</td>
+                                                <td class="py-2 px-4 border-b">{{ $product->stock }}</td>
+                                                <td class="py-2 px-4 border-b">{{ $product->created_at->format('d-m-Y H:i') }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
                     @else
                         <p class="text-gray-500 mt-4">Tidak ada produk pada rentang tanggal tersebut.</p>
                     @endif
                 </div>
+                <style>
+                     .scrollable-table-monthly {
+                                max-height: 200px;
+                                overflow-y: auto;
+                                border: 1px solid #dee2e6;
+                                border-radius: 10px;
+                                scrollbar-width: none;
+                            }
+
+                            /* Biar scrollbar halus (opsional) */
+                            .scrollable-table-monthly::-webkit-scrollbar {
+                                display: none;
+                            }
+
+                            .scrollable-table-monthly::-webkit-scrollbar-thumb {
+                                background-color: #aaa;
+                                border-radius: 3px;
+                            }
+                </style>
 
             </div>
         </main>

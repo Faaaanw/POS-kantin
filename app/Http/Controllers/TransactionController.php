@@ -14,7 +14,7 @@ class TransactionController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Transaction::with('user')->orderBy('transaction_time', 'asc');
+        $query = Transaction::with('user')->orderBy('transaction_time', 'desc');
 
         if ($request->start_date && $request->end_date) {
             $query->whereBetween('transaction_time', [

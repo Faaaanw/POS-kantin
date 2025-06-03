@@ -113,12 +113,13 @@
               <line x1="12" y1="9" x2="12" y2="15" />
             </svg>
           </div>
-          <span class="logo-text">SybauMart</span>
+          <span class="logo-text">LioMart</span>
         </div>
       </div>
 
       <nav class="sidebar-nav">
-        <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}"
+        @if (Auth::user() && Auth::user()->role === 'admin')
+        <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"
           style="text-decoration: none; color: #363467;">
 
           <div class="nav-item">
@@ -132,6 +133,7 @@
             <span style="font-size: 14px">Dashboard</span>
           </div>
         </a>
+        @endif
         <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.index') ? 'active' : '' }}"
           style="text-decoration: none; color: #363467;">
 
@@ -145,6 +147,7 @@
             <span style="font-size: 14px">Menu</span>
           </div>
         </a>
+        @if (Auth::user() && Auth::user()->role === 'admin')
         <a href="{{ route('products.report') }}" class="{{ request()->routeIs('products.report') ? 'active' : '' }}"
           style="text-decoration: none; color: #363467;">
           <div class="nav-item">
@@ -157,6 +160,7 @@
             <span style="font-size: 14px">Laporan Produk</span>
           </div>
         </a>
+        @endif
 
         <a href="{{ route('transactions.index') }}" class="{{ request()->routeIs('transactions.*') ? 'active' : '' }}"
           style="text-decoration: none; color: #363467;">
